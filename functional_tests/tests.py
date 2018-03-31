@@ -76,10 +76,13 @@ class NewVisitorTest(LiveServerTestCase):
     self.browser.get(self.live_server_url)
     inputbox = self.browser.find_element_by_id('id_new_item')
     inputbox.send_keys('Buy peacock feathers')
+    inputbox.send_keys(Keys.ENTER)
+    
+    self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
     # She notices that her list has a unique URL
     edith_list_url = self.browser.current_url
-    self.assertRegex(edith_list_url, '/list/.+')
+    self.assertRegex(edith_list_url, '/lists/.+')
 
     # Now a new user, Francis, comes along to the site. 
     ## We use a new browser session to make sure that no information
